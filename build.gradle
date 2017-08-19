@@ -1,0 +1,39 @@
+
+buildscript {
+	repositories {
+		mavenLocal()
+		mavenCentral()
+	}
+}
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+apply plugin: 'java'
+apply plugin: 'java-lang'
+apply plugin: 'jvm-component'
+apply plugin: 'junit-test-suite'
+
+dependencies {
+	testCompile 'junit:junit:4.12'
+}
+
+model {
+	components {
+		main(JvmLibrarySpec)
+	}
+	
+	testSuites {
+		test(JUnitTestSuiteSpec) {
+			jUnitVersion 4.12
+			testing $.components.main
+		}
+		
+		integrationtest(JUnitTestSuiteSpec) {
+			jUnitVersion 4.12
+			testing $.components.main
+		}
+	}
+}
